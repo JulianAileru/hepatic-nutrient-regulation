@@ -1,0 +1,12 @@
+[workspace]
+authors = ["Julian Aileru <jaileru@unc.edu>"]
+channels = ["conda-forge", "bioconda"]
+name = "hnr-workspace"
+platforms = ["linux-64"]
+version = "0.1.0"
+
+[tasks]
+
+[dependencies]
+snakemake = ">=9.27.1,<10"
+snakedeploy = ">=0.17.1,<0.18"

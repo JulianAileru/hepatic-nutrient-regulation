@@ -1,0 +1,9 @@
+sample_id    run_accession    diet
+GSM1163164   SRR901041        chow
+GSM1163165   SRR901042        chow
+GSM1163166   SRR901043        chow
+GSM1163167   SRR901044        high_fat
+GSM1163168   SRR901045        high_fat
+GSM1163169   SRR901046        calorie_restriction
+GSM1163170   SRR901047        calorie_restriction
+GSM1163171   SRR901048        calorie_restriction

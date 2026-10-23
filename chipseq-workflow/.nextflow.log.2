@@ -1,0 +1,68 @@
+Oct-23 14:37:59.143 [main] DEBUG nextflow.cli.Launcher - $> nextflow run nf-core/chipseq -r 2.1.0 --help
+Oct-23 14:37:59.295 [main] DEBUG nextflow.cli.CmdRun - N E X T F L O W  ~  version 26.02.0-edge
+Oct-23 14:37:59.318 [main] DEBUG nextflow.plugin.PluginsFacade - Setting up plugin manager > mode=prod; embedded=false; plugins-dir=/nas/longleaf/home/jaileru/.nextflow/plugins; core-plugins: nf-amazon@3.7.1,nf-azure@1.22.0,nf-cloudcache@0.6.0,nf-codecommit@0.5.0,nf-console@1.3.0,nf-google@1.26.1,nf-k8s@1.5.0,nf-seqera@0.12.0,nf-tower@1.21.0,nf-wave@1.18.0
+Oct-23 14:37:59.343 [main] INFO  o.pf4j.DefaultPluginStatusProvider - Enabled plugins: []
+Oct-23 14:37:59.344 [main] INFO  o.pf4j.DefaultPluginStatusProvider - Disabled plugins: []
+Oct-23 14:37:59.347 [main] INFO  org.pf4j.DefaultPluginManager - PF4J version 3.12.0 in 'deployment' mode
+Oct-23 14:37:59.375 [main] DEBUG nextflow.util.RetryConfig - Missing nextflow session - using default retry config
+Oct-23 14:37:59.503 [main] DEBUG nextflow.plugin.PluginUpdater - Using plugin repository: HttpPluginRepository [registry]; url=https://registry.nextflow.io/api
+Oct-23 14:37:59.510 [main] INFO  org.pf4j.AbstractPluginManager - No plugins
+Oct-23 14:37:59.521 [main] DEBUG nextflow.scm.ProviderConfig - Using SCM config path: /nas/longleaf/home/jaileru/.nextflow/scm
+Oct-23 14:37:59.539 [main] DEBUG nextflow.scm.AssetManager - Selecting multi-revision strategy
+Oct-23 14:37:59.772 [main] DEBUG nextflow.scm.RepositoryFactory - Found Git repository result: [RepositoryFactory]
+Oct-23 14:37:59.788 [main] DEBUG nextflow.config.ConfigParserFactory - Using config parser v2
+Oct-23 14:38:00.091 [main] WARN  nextflow.scm.AssetManager - Cannot read project manifest -- Cause:  Config parsing failed
+Oct-23 14:38:00.554 [main] DEBUG nextflow.config.ConfigBuilder - Found config base: /nas/longleaf/home/jaileru/.nextflow/assets/.repos/nf-core/chipseq/clones/76e2382b6d443db4dc2396e6831d1243256d80b0/nextflow.config
+Oct-23 14:38:00.558 [main] DEBUG nextflow.config.ConfigBuilder - Parsing config file: /nas/longleaf/home/jaileru/.nextflow/assets/.repos/nf-core/chipseq/clones/76e2382b6d443db4dc2396e6831d1243256d80b0/nextflow.config
+Oct-23 14:38:00.561 [main] DEBUG nextflow.config.ConfigParserFactory - Using config parser v2
+Oct-23 14:38:00.573 [main] DEBUG nextflow.config.ConfigBuilder - Applying config profile: `standard`
+Oct-23 14:38:00.777 [main] ERROR nextflow.cli.Launcher - Config parsing failed
+nextflow.exception.ConfigParseException: Config parsing failed
+	at nextflow.config.parser.v2.ConfigParserV2.parse(ConfigParserV2.groovy:154)
+	at org.codehaus.groovy.vmplugin.v8.IndyInterface.fromCache(IndyInterface.java:321)
+	at nextflow.config.parser.v2.ConfigParserV2.parse(ConfigParserV2.groovy:184)
+	at org.codehaus.groovy.vmplugin.v8.IndyInterface.fromCache(IndyInterface.java:321)
+	at nextflow.config.ConfigBuilder.parse0(ConfigBuilder.groovy:454)
+	at org.codehaus.groovy.vmplugin.v8.IndyInterface.fromCache(IndyInterface.java:321)
+	at nextflow.config.ConfigBuilder.merge0(ConfigBuilder.groovy:439)
+	at org.codehaus.groovy.vmplugin.v8.IndyInterface.fromCache(IndyInterface.java:321)
+	at nextflow.config.ConfigBuilder.buildConfig0(ConfigBuilder.groovy:395)
+	at org.codehaus.groovy.vmplugin.v8.IndyInterface.fromCache(IndyInterface.java:321)
+	at nextflow.config.ConfigBuilder.buildGivenFiles(ConfigBuilder.groovy:336)
+	at org.codehaus.groovy.vmplugin.v8.IndyInterface.fromCache(IndyInterface.java:321)
+	at nextflow.config.ConfigBuilder.buildConfigObject(ConfigBuilder.groovy:833)
+	at org.codehaus.groovy.vmplugin.v8.IndyInterface.fromCache(IndyInterface.java:321)
+	at nextflow.config.ConfigBuilder.build(ConfigBuilder.groovy:846)
+	at nextflow.cli.CmdRun.run(CmdRun.groovy:362)
+	at nextflow.cli.Launcher.run(Launcher.groovy:515)
+	at nextflow.cli.Launcher.main(Launcher.groovy:675)
+Caused by: org.codehaus.groovy.control.MultipleCompilationErrorsException: startup failed:
+_nf_config_5712d445f236b0be: 303: Unexpected input: '(' @ line 303, column 14.
+   def check_max(obj, type) {
+                ^
+
+1 error
+
+	at org.codehaus.groovy.control.ErrorCollector.failIfErrors(ErrorCollector.java:292)
+	at org.codehaus.groovy.control.ErrorCollector.addFatalError(ErrorCollector.java:148)
+	at nextflow.config.parser.ConfigAstBuilder.collectSyntaxError(ConfigAstBuilder.java:1407)
+	at nextflow.config.parser.ConfigAstBuilder$1.syntaxError(ConfigAstBuilder.java:1428)
+	at org.antlr.v4.runtime.ProxyErrorListener.syntaxError(ProxyErrorListener.java:44)
+	at org.antlr.v4.runtime.Parser.notifyErrorListeners(Parser.java:543)
+	at nextflow.script.parser.DescriptiveErrorStrategy.notifyErrorListeners(DescriptiveErrorStrategy.java:121)
+	at nextflow.script.parser.DescriptiveErrorStrategy.reportNoViableAlternative(DescriptiveErrorStrategy.java:94)
+	at nextflow.script.parser.DescriptiveErrorStrategy.recover(DescriptiveErrorStrategy.java:51)
+	at nextflow.config.parser.ConfigParser.compilationUnit(ConfigParser.java:286)
+	at nextflow.config.parser.ConfigAstBuilder.buildCST(ConfigAstBuilder.java:163)
+	at nextflow.config.parser.ConfigAstBuilder.buildCST(ConfigAstBuilder.java:148)
+	at nextflow.config.parser.ConfigAstBuilder.buildAST(ConfigAstBuilder.java:177)
+	at nextflow.config.parser.ConfigParserPlugin.buildAST(ConfigParserPlugin.java:51)
+	at org.codehaus.groovy.control.SourceUnit.buildAST(SourceUnit.java:256)
+	at java.base/java.util.Iterator.forEachRemaining(Iterator.java:133)
+	at java.base/java.util.Spliterators$IteratorSpliterator.forEachRemaining(Spliterators.java:1939)
+	at java.base/java.util.stream.ReferencePipeline$Head.forEach(ReferencePipeline.java:807)
+	at org.codehaus.groovy.control.CompilationUnit.compile(CompilationUnit.java:631)
+	at nextflow.config.parser.v2.ConfigCompiler.compile0(ConfigCompiler.java:112)
+	at nextflow.config.parser.v2.ConfigCompiler.compile(ConfigCompiler.java:97)
+	at nextflow.config.parser.v2.ConfigParserV2.parse(ConfigParserV2.groovy:133)
+	... 17 common frames omitted
