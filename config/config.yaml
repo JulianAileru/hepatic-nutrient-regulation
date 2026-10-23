@@ -1,0 +1,102 @@
+# path or URL to sample sheet (TSV format, columns: sample, condition, ...)
+samples: config/samples.tsv
+# path or URL to sequencing unit sheet (TSV format, columns: sample, unit, fq1, fq2)
+# Units are technical replicates (e.g. lanes, or resequencing of the same biological
+# sample).
+units: config/units.tsv
+
+ref:
+  # ensembl species name:
+  # This species needs to be available for download via the Ensembl FTP site.
+  # For a quick check, see the Ensembl species list:
+  # https://www.ensembl.org/info/about/species.html
+  # For full valid species names, consult the respective table for the release
+  # you specify, for example for ‘114’ this is at:
+  # https://ftp.ensembl.org/pub/release-114/species_EnsemblVertebrates.txt
+  # And to browse available downloads in more detail, see the FTP server:
+  # https://ftp.ensembl.org/pub/
+  species: Mus_musculus
+  # ensembl release version:
+  # Update this to the latest working version, when you first set up a new
+  # analysis on a dataset. You can usually find the latest release in the
+  # Ensembl blog, by looking at the latest posts of the release category:
+  # https://www.ensembl.info/category/01-release/
+  # Later, it only makes sense to update (or downgrade) the release versions
+  # if either (a) the version you are using consistently fails to download
+  # (some Ensembl release versions are just broken) or (b) you know that a
+  # newer version will include changes that will fix some error or adds
+  # transcripts that will be relevant to your analysis.
+  release: 114
+  # genome build:
+  # Usually, this should just be the main build listed in:
+  # https://ftp.ensembl.org/pub/release-114/species_EnsemblVertebrates.txt
+  # For example, for homo_sapiens, you strip the assembly column entry
+  # "GRCh38.p12" down to "GRCh38". If in doubt, navigate to the respective
+  # cdna folder on the FTP server, and look for the correct build in the
+  # file names there. For example "GRCh38" in:
+  # https://ftp.ensembl.org/pub/release-114/fasta/homo_sapiens/cdna/
+  build: GRCm39
+
+trimming:
+  # If you activate trimming by setting this to `True`, this will trim adapters
+  # from your reads with fastp. This can auto-detect adapters in many cases,
+  # but please double-check the fastq HTML report to see if this worked. For
+  # more details, consult the config/README.md file.
+  activate: True
+
+pca:
+  activate: True
+  # Per default, a separate PCA plot is generated for each of the
+  # `variables_of_interest` and the `batch_effects`, coloring according to
+  # that variables groups.
+  # If you want PCA plots for further columns in the samples.tsv sheet, you
+  # can request them under labels as a list, for example:
+  # - relatively_uninteresting_variable_X
+  # - possible_batch_effect_Y
+  labels: ""
+
+diffexp:
+  # variables for whome you are interested in whether they have an effect on
+  # expression levels
+  variables_of_interest:
+    diet:
+      # any fold change will be relative to this factor level
+      base_level: chow
+  # variables whose effect you want to model to separate them from your
+  # variables_of_interest
+  batch_effects: []
+  # contrasts for the deseq2 results method to determine fold changes
+  contrasts:
+    hfd_vs_chow:
+      # must be one of the variables_of_interest, for details see:
+      # https://www.bioconductor.org/packages/devel/bioc/vignettes/DESeq2/inst/doc/DESeq2.html#contrasts
+      variable_of_interest: diet
+      # must be a level present in the variable_of_interest that is not the
+      # base_level specified above
+      level_of_interest: hfd
+    cr_vs_chow:
+      variable_of_interest: diet
+      level_of_interest: calorie_restriction
+    cr_vs_hfd: 'c("diet", "calorie_restriction", "hfd")'
+  # The default model includes all interactions among variables_of_interest
+  # and batch_effects added on. For the example above this implicitly is:
+  # model: ~jointly_handled + treatment_1 * treatment_2
+  # For the default model to be used, simply specify an empty `model: ""` below.
+  # If you want to introduce different assumptions into your model, you can
+  # specify a different model to use, for example skipping the interaction:
+  # model: ~jointly_handled + treatment_1 + treatment_2
+  model: ""
+
+# passing extra parameters to respective rules in the workflow
+params:
+  star:
+    # For extra parameters you can pass to the star indexing wrapper, see the
+    # wrapper documentation and the star documentation:
+    # - https://snakemake-wrappers.readthedocs.io/en/stable/wrappers/bio/star/index.html
+    # - https://github.com/alexdobin/STAR?tab=readme-ov-file#manual
+    index: ""
+    # For extra parameters you can pass to the star alignment wrapper, see the
+    # wrapper documentation and the star documentation:
+    # - https://snakemake-wrappers.readthedocs.io/en/stable/wrappers/bio/star/align.html
+    # - https://github.com/alexdobin/STAR?tab=readme-ov-file#manual
+    align: ""
