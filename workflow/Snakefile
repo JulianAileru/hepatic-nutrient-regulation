@@ -1,0 +1,19 @@
+from snakemake.utils import min_version
+
+
+min_version("6.10.0")
+
+
+configfile: "config/config.yaml"
+
+
+# declare https://github.com/snakemake-workflows/rna-seq-star-deseq2 as a module
+module rna_seq_star_deseq2:
+    snakefile: 
+        github("snakemake-workflows/rna-seq-star-deseq2", path="workflow/Snakefile", tag="v3.1.2")
+    config:
+        config
+
+
+# use all rules from https://github.com/snakemake-workflows/rna-seq-star-deseq2
+use rule * from rna_seq_star_deseq2
