@@ -1,0 +1,25 @@
+# Snakemake runtime state
+.snakemake/
+
+# Workflow outputs and logs
+results/
+logs/
+
+# Large sequencing files
+*.fastq
+*.fastq.gz
+*.fq
+*.fq.gz
+*.bam
+*.bai
+*.sam
+*.cram
+*.sra
+
+# Large reference files (if downloaded into the repo)
+*.fasta
+*.fa
+*.fna
+*.gtf
+*.gff
+*.tar
