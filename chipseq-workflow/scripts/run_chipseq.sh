@@ -6,7 +6,7 @@
 
 set -euo pipefail
 
-REPO="/nas/longleaf/home/jaileru/hepatic-nutrient-regulation"
+REPO="/users/j/a/jaileru/hepatic-nutrient-regulation"
 cd "$REPO"
 
 export NXF_SYNTAX_PARSER=v1
