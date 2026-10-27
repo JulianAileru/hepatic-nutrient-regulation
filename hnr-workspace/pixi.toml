@@ -10,3 +10,4 @@ version = "0.1.0"
 [dependencies]
 snakemake = ">=9.27.1,<10"
 snakedeploy = ">=0.17.1,<0.18"
+snakemake-executor-plugin-slurm = ">=2.8.0,<3"
