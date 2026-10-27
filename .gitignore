@@ -23,3 +23,21 @@ logs/
 *.gtf
 *.gff
 *.tar
+
+# Nextflow intermediates
+chipseq-workflow/work/
+.nextflow/
+.nextflow.log*
+
+# Reference Genome
+resources/
+
+slurm-*.out
+chipseq-workflow/slurm-logs/
+.ipynb_checkpoints/
+dry_run.txt
+
+chipseq-workflow/old
+
+# Nextflow pipeline_info written when outdir is unset
+null/
