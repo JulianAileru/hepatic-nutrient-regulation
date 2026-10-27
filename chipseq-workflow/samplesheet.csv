@@ -1,0 +1,13 @@
+sample,fastq_1,fastq_2,replicate,antibody,control,control_replicate
+CR_IgG,/users/j/a/jaileru/hepatic-nutrient-regulation/chipseq-workflow/data/fastq/SRR901057.fastq.gz,,1,,,
+CR_IgG,/users/j/a/jaileru/hepatic-nutrient-regulation/chipseq-workflow/data/fastq/SRR901058.fastq.gz,,2,,,
+CR_PPARA,/users/j/a/jaileru/hepatic-nutrient-regulation/chipseq-workflow/data/fastq/SRR901050.fastq.gz,,1,PPARA,CR_IgG,1
+CR_PPARA,/users/j/a/jaileru/hepatic-nutrient-regulation/chipseq-workflow/data/fastq/SRR901054.fastq.gz,,2,PPARA,CR_IgG,2
+CR_RXRA,/users/j/a/jaileru/hepatic-nutrient-regulation/chipseq-workflow/data/fastq/SRR901049.fastq.gz,,1,RXRA,CR_IgG,1
+CR_RXRA,/users/j/a/jaileru/hepatic-nutrient-regulation/chipseq-workflow/data/fastq/SRR901053.fastq.gz,,2,RXRA,CR_IgG,2
+HFD_IgG,/users/j/a/jaileru/hepatic-nutrient-regulation/chipseq-workflow/data/fastq/SRR901059.fastq.gz,,1,,,
+HFD_IgG,/users/j/a/jaileru/hepatic-nutrient-regulation/chipseq-workflow/data/fastq/SRR901060.fastq.gz,,2,,,
+HFD_PPARA,/users/j/a/jaileru/hepatic-nutrient-regulation/chipseq-workflow/data/fastq/SRR901052.fastq.gz,,1,PPARA,HFD_IgG,1
+HFD_PPARA,/users/j/a/jaileru/hepatic-nutrient-regulation/chipseq-workflow/data/fastq/SRR901056.fastq.gz,,2,PPARA,HFD_IgG,2
+HFD_RXRA,/users/j/a/jaileru/hepatic-nutrient-regulation/chipseq-workflow/data/fastq/SRR901051.fastq.gz,,1,RXRA,HFD_IgG,1
+HFD_RXRA,/users/j/a/jaileru/hepatic-nutrient-regulation/chipseq-workflow/data/fastq/SRR901055.fastq.gz,,2,RXRA,HFD_IgG,2
