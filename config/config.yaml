@@ -15,7 +15,7 @@ ref:
   # https://ftp.ensembl.org/pub/release-114/species_EnsemblVertebrates.txt
   # And to browse available downloads in more detail, see the FTP server:
   # https://ftp.ensembl.org/pub/
-  species: Mus_musculus
+  species: mus_musculus
   # ensembl release version:
   # Update this to the latest working version, when you first set up a new
   # analysis on a dataset. You can usually find the latest release in the
