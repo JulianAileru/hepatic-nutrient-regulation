@@ -8,6 +8,8 @@
 #SBATCH --mail-user=jaileru@unc.edu
 #SBATCH --mail-type=END,FAIL
 
+set -eo pipefail
+
 source env.sh
 
 export NXF_OPTS="-Xms512m -Xmx4g"
@@ -20,6 +22,7 @@ nextflow run nf-core/chipseq \
     --gtf /users/j/a/jaileru/hepatic-nutrient-regulation/resources/genome.gtf \
     --aligner bwa \
     --macs_gsize 1870000000 \
+    --narrow_peak \
     -resume \
     -with-report reports/execution_report.html \
     -with-timeline reports/timeline.html \

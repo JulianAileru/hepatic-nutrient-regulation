@@ -2,6 +2,7 @@
 
 # Load HPC dependencies
 module load apptainer
+module load nextflow/26.10.2
 
 # Nextflow compatibility
 export NXF_SYNTAX_PARSER=v1
