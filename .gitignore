@@ -41,3 +41,6 @@ chipseq-workflow/old
 
 # Nextflow pipeline_info written when outdir is unset
 null/
+
+# ChIP-seq lives on the chipseq branch
+chipseq-workflow/
