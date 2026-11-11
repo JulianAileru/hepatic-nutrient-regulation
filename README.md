@@ -19,7 +19,7 @@ was not completed. The DNase-seq is not analyzed.
 
 ## Status
 
-Complete. Pipeline outputs are in `results/`. The downstream analysis and
+Pipeline outputs are in `results/`. The downstream analysis and
 figures are in [analysis/hnr-de.ipynb](analysis/hnr-de.ipynb) and
 [analysis/figures/](analysis/figures/).
 
