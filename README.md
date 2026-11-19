@@ -21,7 +21,7 @@ analyzed here.
 | Analysis | Status |
 |---|---|
 | RNA-seq | Complete. Results are in `results/`. |
-| ChIP-seq | Incomplete. The 24 Oct 2026 run stopped at peak calling because quay.io was temporarily unavailable when the MACS3 container was downloaded. FastQC and trimming finished for all 12 libraries, and filtered BAMs exist for 7 of 12. The run needs to be resumed (see [ChIP-seq](#chip-seq)). |
+| ChIP-seq | nf-core/chipseq run complete (narrow peaks). Downstream differential binding (DiffBind) and peak annotation are in `chipseq-workflow/analysis/` (see [Downstream analysis](#downstream-analysis)). |
 
 ## Repository layout
 
@@ -33,6 +33,7 @@ hnr-workspace/          pixi environment (Snakemake + SLURM executor plugin)
 data/metadata/          SRA run table, accession list, RNA-seq sample sheet
 chipseq-workflow/       nf-core/chipseq setup: run script, config, samplesheet, helper scripts
   scripts/              download_sra.sh, generate_samplesheet.py
+  analysis/             downstream notebooks (DiffBind, peak annotation) and SLURM runner
   reports/              Nextflow execution report and timeline
 ```
 
@@ -255,14 +256,45 @@ sbatch run_nf_chipseq.sh
 
 ### Outputs (`chipseq-workflow/results/`)
 
-| Path | Contents | Status |
+| Path | Contents |
+|---|---|
+| `fastqc/`, `trimgalore/` | Read QC and trimming |
+| `bwa/merged_library/*.mLb.clN.sorted.bam` | Filtered, deduplicated alignments (12 libraries) |
+| `bwa/merged_library/{picard_metrics,preseq,samtools_stats,phantompeakqualtools}/` | Alignment and ChIP enrichment QC |
+| `bwa/merged_library/macs3/narrow_peak/` | MACS3 peaks, FRiP, consensus peaks per antibody, HOMER annotation, PCA-only DESeq2 |
+| `bwa/merged_library/bigwig/`, `deeptools/` | Coverage tracks and profile plots |
+| `multiqc/` | Combined QC report |
+| `downstream/diffbind/`, `downstream/annotation/` | Outputs of the downstream notebooks (below) |
+
+`macs3/broad_peak/` is left over from an earlier broad-peak run and is not used downstream.
+
+### Downstream analysis
+
+Two notebooks in `chipseq-workflow/analysis/`, run in order, using the pixi environment `chipseq`
+(`hnr-workspace/pixi.toml`: DiffBind 3.16 in R, pyranges/gseapy in Python).
+
+| Notebook | Kernel | What it does |
 |---|---|---|
-| `fastqc/`, `trimgalore/` | Read QC and trimming | Done |
-| `bwa/merged_library/*.mLb.clN.sorted.bam` | Filtered, deduplicated alignments | 7 of 12 |
-| `bwa/merged_library/{picard_metrics,preseq,samtools_stats}/` | Alignment QC | Partial |
-| `bwa/merged_library/macs3/` | Peaks, consensus peaks, HOMER annotation, peak-level DESeq2 | Pending |
-| `bwa/merged_library/bigwig/`, `deeptools/` | Coverage tracks and profile plots | Pending |
-| `multiqc/` | Combined QC report | Pending |
+| `01_diffbind.ipynb` | R (hnr chipseq) | Library QC table; DiffBind per factor (PPARA, RXRA), CR vs HFD, IgG greylist, summit-centred 401 bp sites in ≥2 libraries, DESeq2 with background-bin normalization plus a reads-in-peaks sensitivity check |
+| `02_peak_annotation.ipynb` | Python (hnr chipseq) | Nearest protein-coding TSS and genomic feature from the Ensembl 114 GTF; PPARα/RXRα co-occupancy; Enrichr GO/KEGG on genes near differential sites (if any); bound vs unbound genes tested for DE in all three RNA-seq contrasts, adjusted for expression level |
+
+Positive `Fold` means higher binding in CR, the same direction as the RNA-seq `cr_vs_hfd` contrast.
+
+```bash
+# one-time setup
+cd hnr-workspace
+pixi install -e chipseq
+pixi run -e chipseq setup-bioc-data    # pixi skips bioconda post-link scripts; installs GenomeInfoDbData
+pixi run -e chipseq install-kernels    # registers the R and Python Jupyter kernels
+
+# execute both notebooks on a compute node (outputs saved into the notebooks)
+cd ../chipseq-workflow/analysis
+sbatch run_notebooks.sh          # or: sbatch run_notebooks.sh 01 / 02
+```
+
+**Caveat:** ChIP quality is uneven within groups (FRiP 0.6–9.3%; HFD_PPARA_REP2 has RSC 1.04), and most PPARα consensus
+peaks come from HFD_PPARA_REP1 alone. Differential sites are best treated as candidates, preferring those significant
+under both normalizations.
 
 ---
 

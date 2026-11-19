@@ -11,3 +11,30 @@ version = "0.1.0"
 snakemake = ">=9.27.1,<10"
 snakedeploy = ">=0.17.1,<0.18"
 snakemake-executor-plugin-slurm = ">=2.8.0,<3"
+
+# ChIP-seq downstream analysis (DiffBind in R, peak annotation in Python)
+[feature.chipseq.dependencies]
+r-base = "4.4.*"
+r-irkernel = "*"
+r-tidyverse = "*"
+bioconductor-diffbind = "*"
+bioconductor-csaw = "*"          # DiffBind background-bin normalization
+python = "3.12.*"
+ipykernel = "*"
+pandas = "*"
+pyranges = "*"
+matplotlib = "*"
+seaborn = "*"
+gseapy = "*"
+scipy = "*"
+nbconvert = "*"
+nbformat = "*"
+statsmodels = "*"
+
+[feature.chipseq.tasks]
+# pixi skips bioconda post-link scripts; this installs the GenomeInfoDbData data package DiffBind needs
+setup-bioc-data = "PREFIX=$CONDA_PREFIX bash $CONDA_PREFIX/bin/.bioconductor-genomeinfodbdata-post-link.sh"
+install-kernels = "R -e 'IRkernel::installspec(name=\"hnr-chipseq-r\", displayname=\"R (hnr chipseq)\")' && python -m ipykernel install --user --name hnr-chipseq-py --display-name 'Python (hnr chipseq)'"
+
+[environments]
+chipseq = { features = ["chipseq"], no-default-feature = true }
